@@ -45,9 +45,11 @@ class UserController extends Controller
 
     public function show($id)
     {
+        $user = User::find($id);
+
         if (!Gate::allows('isAdmin')) {
 
-            if (Auth::id() != $id) {
+            if ($user->role_id == 1) {
                 ActivityLog::create([
                     'user_id' => Auth::user()->id,
                     'activity' => 'Tried to access unauthorized user profile'
