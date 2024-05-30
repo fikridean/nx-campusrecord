@@ -122,7 +122,8 @@
         <h1 class="mb-4">Users Details</h1>
 
         <form class="d-flex my-4" action="/dashboard" method="GET" class="d-flex">
-            <input type="text" name="query" class="form-control me-2" placeholder="Search your friends by username, email, or NIM" required>
+            <input type="text" name="query" class="form-control me-2"
+                placeholder="Search your friends by username, email, or NIM">
             <button type="submit" class="btn btn-warning text-white">Search</button>
         </form>
 
@@ -148,8 +149,11 @@
                                     <td>{{ $user->nim }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->date_of_birth }}</td>
-                                    <td>{{ $user->address }} {{ $user->rt_number }} {{ $user->rw_number }} {{ $user->village }} {{ $user->district }} {{ $user->city }} {{ $user->province }}</td>
-                                    <td><a class="btn text-white btn-success btn-sm" href="{{ $user->map_url }}" target="_blank">Gmaps</a></td>
+                                    <td>{{ $user->address }} {{ $user->rt_number }} {{ $user->rw_number }}
+                                        {{ $user->village }} {{ $user->district }} {{ $user->city }}
+                                        {{ $user->province }}</td>
+                                    <td><a class="btn text-white btn-success btn-sm" href="{{ $user->map_url }}"
+                                            target="_blank">Gmaps</a></td>
                                     <td>
                                         @can('isAdmin')
                                             <a href="{{ route('user.show', $user->id) }}"
@@ -160,7 +164,8 @@
                                                 class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm md:col-7">Delete</button>
+                                                <button type="submit"
+                                                    class="btn btn-danger btn-sm md:col-7">Delete</button>
                                             </form>
                                         @endcan
                                         @can('isStudent')
