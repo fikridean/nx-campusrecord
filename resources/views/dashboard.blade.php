@@ -143,10 +143,8 @@
                                     <td>{{ $user->nim }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->date_of_birth }}</td>
-                                    <td>{{ $user->address }} {{ $user->rt_number }} {{ $user->rw_number }}
-                                        {{ $user->village }} {{ $user->district }} {{ $user->city }}
-                                        {{ $user->province }}</td>
-                                    <td><a href="{{ $user->map_url }}" target="_blank">Gmaps</a></td>
+                                    <td>{{ $user->address }} {{ $user->rt_number }} {{ $user->rw_number }} {{ $user->village }} {{ $user->district }} {{ $user->city }} {{ $user->province }}</td>
+                                    <td><a class="btn text-white btn-success btn-sm" href="{{ $user->map_url }}" target="_blank">Gmaps</a></td>
                                     <td>
                                         @can('isAdmin')
                                             <a href="{{ route('user.show', $user->id) }}"
