@@ -163,11 +163,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        ActivityLog::create([
-            'user_id' => Auth::user()->id,
-            'activity' => 'Deleted user'
-        ]);
-
         return redirect(Route('dashboard'));
     }
 }
