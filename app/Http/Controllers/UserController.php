@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
+use App\Models\User;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
+class UserController extends Controller
+{
+    public function dashboard()
+    {
+        if (Gate::allows('isAdmin')) {
+            $users = User::all();
+        } else {
+            $users = User::where(['role_id' => 2])->get();
+        }
+
+        ActivityLog::create([
+            'user_id' => Auth::user()->id,
+            'activity' => 'Accessed user list'
+        ]);
+
+        return view('dashboard', [
+            'users' => $users,
+            'activities' => ActivityLog::all()
+        ]);
+    }
+
+    public function show($id)
+    {
+        if (!Gate::allows('isAdmin')) {
+            return redirect(Route('dashboard'));
+        }
+
+        $user = User::find($id);
+
+        return view('user.show', [
+            'user' => $user
+        ]);
+    }
+
+    public function edit($id)
+    {
+        if (!Gate::allows('isAdmin')) {
+            return redirect(Route('dashboard'));
+        }
+
+        $user = User::find($id);
+
+        return view('user.edit', [
+            'user' => $user
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        if (!Gate::allows('isAdmin')) {
+            return redirect(Route('dashboard'));
+        }
+
+        $validate = $request->validate([
+            'name' => ['string', 'min:3', 'max:255'],
+            'date_of_birth' => ['string', 'min:3', 'max:50'],
+            'phone_number' => ['string', 'min:3', 'max:100'],
+            'hobby' => ['string', 'min:3'],
+            'address' => ['string', 'min:3', 'max:100'],
+            'rt_number' => ['string', 'min:1', 'max:100'],
+            'rw_number' => ['string', 'min:1', 'max:100'],
+            'village' => ['string', 'min:3', 'max:100'],
+            'district' => ['string', 'min:3', 'max:100'],
+            'city' => ['string', 'min:3', 'max:100'],
+            'province' => ['string', 'min:3', 'max:100'],
+            'map_url' => ['string', 'min:3', 'max:100'],
+        ]);
+
+        $user = User::find($id);
+        $user->update($validate);
+
+        ActivityLog::create([
+            'user_id' => Auth::user()->id,
+            'activity' => 'Updated user profile'
+        ]);
+
+        return redirect(Route('user.show', $id));
+    }
+
+    public function destroy($id)
+    {
+        if (!Gate::allows('isAdmin')) {
+            return redirect(Route('dashboard'));
+        }
+
+        $user = User::find($id);
+        $user->delete();
+
+        ActivityLog::create([
+            'user_id' => Auth::user()->id,
+            'activity' => 'Deleted user'
+        ]);
+
+        return redirect(Route('dashboard'));
+    }
+}
