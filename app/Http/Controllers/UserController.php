@@ -25,10 +25,17 @@ class UserController extends Controller
             'activity' => 'Accessed user list'
         ]);
 
-        return view('dashboard', [
-            'users' => $users,
-            'activities' => ActivityLog::all()
-        ]);
+        if (Gate::allows('isAdmin')) {
+            return view('dashboard', [
+                'users' => $users,
+                'activities' => ActivityLog::all()
+            ]);
+        } else {
+            return view('dashboard', [
+                'users' => $users,
+                'activities' => ActivityLog::where(['user_id' => Auth::user()->id])->get()
+            ]);
+        }
     }
 
     public function show($id)
