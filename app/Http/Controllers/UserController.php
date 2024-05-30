@@ -12,12 +12,17 @@ use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
-    public function dashboard()
+    public function dashboard($search = null)
     {
         if (Gate::allows('isAdmin')) {
             $users = User::all();
         } else {
             $users = User::where(['role_id' => 2])->get();
+        }
+
+        if ($search) {
+            $users = User::where('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%')->orWhere('nim')->orWhere('address', 'like', '%' . $search . '%')->get();
         }
 
         ActivityLog::create([
