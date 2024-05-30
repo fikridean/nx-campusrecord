@@ -39,6 +39,11 @@ class UserController extends Controller
 
         $user = User::find($id);
 
+        ActivityLog::create([
+            'user_id' => Auth::user()->id,
+            'activity' => 'Accessed user profile'
+        ]);
+
         return view('user.show', [
             'user' => $user
         ]);
@@ -51,6 +56,11 @@ class UserController extends Controller
         }
 
         $user = User::find($id);
+
+        ActivityLog::create([
+            'user_id' => Auth::user()->id,
+            'activity' => 'Accessed user edit form'
+        ]);
 
         return view('user.edit', [
             'user' => $user
