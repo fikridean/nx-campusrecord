@@ -18,11 +18,14 @@
             background-color: rgba(0, 123, 255, 0.9);
         }
 
-        .navbar-brand, .nav-link, .btn-outline-danger {
+        .navbar-brand,
+        .nav-link,
+        .btn-outline-danger {
             color: #ffffff !important;
         }
 
-        .navbar-brand:hover, .nav-link:hover {
+        .navbar-brand:hover,
+        .nav-link:hover {
             color: #cce7ff !important;
         }
 
@@ -82,7 +85,8 @@
             border-color: #c82333;
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             color: #0056b3;
             font-weight: bold;
         }
@@ -143,23 +147,29 @@
                                     <td><a class="btn text-white btn-success btn-sm" href="{{ $user->map_url }}" target="_blank">Gmaps</a></td>
                                     <td>
                                         @can('isAdmin')
-                                        <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary btn-sm">Detail</a>
-                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-secondary btn-sm">Edit</a>
-                                        <form action="{{ route('user.destroy', $user->id) }}" method="post" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                        @endcan
-                                        @can('isStudent')
-                                        <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary btn-sm">Detail</a>
-                                            @can('update-user', $user)
-                                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-secondary btn-sm">Edit</a>
-                                            <form action="{{ route('user.destroy', $user->id) }}" method="post" class="d-inline">
+                                            <a href="{{ route('user.show', $user->id) }}"
+                                                class="btn btn-primary btn-sm">Detail</a>
+                                            <a href="{{ route('user.edit', $user->id) }}"
+                                                class="btn btn-secondary btn-sm">Edit</a>
+                                            <form action="{{ route('user.destroy', $user->id) }}" method="post"
+                                                class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                             </form>
+                                        @endcan
+                                        @can('isStudent')
+                                            <a href="{{ route('user.show', $user->id) }}"
+                                                class="btn btn-primary btn-sm">Detail</a>
+                                            @can('update-user', $user)
+                                                <a href="{{ route('user.edit', $user->id) }}"
+                                                    class="btn btn-secondary btn-sm">Edit</a>
+                                                <form action="{{ route('user.destroy', $user->id) }}" method="post"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
                                             @endcan
                                         @endcan
                                     </td>
@@ -185,14 +195,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($activities->reverse()->take(10) as $activity)
-                            <tr>
-                                <th scope="row">{{ $activity->user->name }}</th>
-                                <td>{{ $activity->activity }}</td>
-                                <td>{{ $activity->created_at }}</td>
-                                <td>{{ $activity->updated_at }}</td>
-                            </tr>
-                        @endforeach
+                            @foreach ($activities->reverse()->take(10) as $activity)
+                                <tr>
+                                    <th scope="row">{{ $activity->user->name }}</th>
+                                    <td>{{ $activity->activity }}</td>
+                                    <td>{{ $activity->created_at }}</td>
+                                    <td>{{ $activity->updated_at }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
