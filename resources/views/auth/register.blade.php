@@ -234,7 +234,7 @@
 
 
             <p class="mt-6 text-center text-sm text-gray-600">
-                Have an account? <a href="/" class="font-medium text-blue-600 hover:text-blue-500">Sign in
+                Have an account? <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:text-blue-500">Sign in
                     here</a>
             </p>
             <!-- Step Indicators -->

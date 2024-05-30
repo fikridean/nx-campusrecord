@@ -30,5 +30,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isStudent', function ($user) {
             return $user->role->id == 2;
         });
+
+        Gate::define('update-user', function ($currentUser, $user) {
+            return $currentUser->id === $user->id;
+        });
     }
 }
