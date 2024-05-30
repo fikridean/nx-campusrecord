@@ -16,7 +16,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('auth/login');
+    return redirect(Route('login'));
 });
 
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');

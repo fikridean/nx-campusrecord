@@ -101,7 +101,6 @@
     <nav class="navbar navbar-expand-lg navbar-light mb-4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Dashboard</a>
-            <a class="navbar-brand" href="{{ route('profile.edit') }}">Profile</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -118,6 +117,12 @@
             </div>
         </div>
     </nav>
+
+    <div class="container mb-4">
+        <h5>Hello {{ Auth::user()->name }}...</h5>
+        <a class="btn btn-small btn-primary mt-2" href="{{ route('profile.edit') }}">My profile</a>
+        <a class="btn btn-small btn-secondary mt-2" href="{{ route('user.show', Auth::id()) }}">See my data</a>
+    </div>
 
     <div class="container">
         <h1 class="mb-4">Users Details</h1>

@@ -117,6 +117,8 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = User::find($id);
+
         if (!Gate::allows('isAdmin')) {
             if (Auth::user()->id != $id) {
                 ActivityLog::create([
@@ -128,7 +130,7 @@ class UserController extends Controller
             }
 
             $validate = $request->validate([
-                'name' => ['string', 'min:3', 'max:255'],
+                'name' => ['string', 'min:3', 'max:100'],
                 'date_of_birth' => ['string', 'min:3', 'max:50'],
                 'phone_number' => ['string', 'min:3', 'max:100'],
                 'hobby' => ['string', 'min:3'],
@@ -143,6 +145,8 @@ class UserController extends Controller
             ]);
         } else {
             $validate = $request->validate([
+                'nim' => ['string', 'min:3', 'max:100'],
+                'email' => ['string', 'min:3', 'max:255'],
                 'role_id' => ['integer', 'min:1', 'max:2'],
                 'name' => ['string', 'min:3', 'max:255'],
                 'date_of_birth' => ['string', 'min:3', 'max:50'],
@@ -157,9 +161,24 @@ class UserController extends Controller
                 'province' => ['string', 'min:3', 'max:100'],
                 'map_url' => ['string', 'min:3', 'max:100'],
             ]);
+
+            if ($user->nim == $validate['nim']) {
+                unset($validate['nim']);
+            } else {
+                if (User::where('nim', $validate['nim'])->first()) {
+                    return redirect(Route('user.edit', $id))->with('errornim', 'NIM already exists')->withInput();
+                }
+            }
+
+            if ($user->email == $validate['email']) {
+                unset($validate['email']);
+            } else {
+                if (User::where('email', $validate['email'])->first()) {
+                    return redirect(Route('user.edit', $id))->with('erroremail', 'Email already exists')->withInput();
+                }
+            }
         }
 
-        $user = User::find($id);
         $user->update($validate);
 
         ActivityLog::create([
