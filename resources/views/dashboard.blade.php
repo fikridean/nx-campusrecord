@@ -154,10 +154,8 @@
                                         @can('isAdmin')
                                             <a href="{{ route('user.show', $user->id) }}"
                                                 class="btn btn-primary btn-sm">Detail</a>
-                                            @can('not-update-user', $user)
                                             <a href="{{ route('user.edit', $user->id) }}"
                                                 class="btn btn-secondary btn-sm">Edit</a>
-                                            @endcan
                                             <form action="{{ route('user.destroy', $user->id) }}" method="post"
                                                 class="d-inline">
                                                 @csrf
