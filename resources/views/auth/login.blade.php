@@ -65,7 +65,8 @@
                 </form>
 
                 <p class="mt-6 text-center text-sm text-gray-600">
-                    Don’ts have an account? <a href="/signUp" class="font-medium text-blue-600 hover:text-blue-500">Sign
+                    Don’ts have an account? <a href="{{ route('register') }}"
+                        class="font-medium text-blue-600 hover:text-blue-500">Sign
                         up here</a>
                 </p>
             </div>

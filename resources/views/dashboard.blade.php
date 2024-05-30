@@ -41,18 +41,21 @@
                                     {{ $user->village }}
                                     {{ $user->district }} {{ $user->city }} {{ $user->province }}</td>
                                 <td><a href="{{ $user->map_url }}" target="_">Gmaps</a></td>
-                                <td>
-                                    <a href="{{ route('user.show', $user->id) }}">Detail</a>
-                                    <a href="{{ route('user.edit', $user->id) }}">Edit</a>
-                                    <form action="{{ route('user.destroy', $user->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
+                                @if ($user->id == Auth::id())
+                                    <td>
+                                        <a href="{{ route('user.show', $user->id) }}">Detail</a>
+                                        <a href="{{ route('user.edit', $user->id) }}">Edit</a>
+                                        <form action="{{ route('user.destroy', $user->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <button type="submit">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </td>
+                                            <button type="submit">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                @endif
+
                             </tr>
                         @endforeach
                     </tbody>
