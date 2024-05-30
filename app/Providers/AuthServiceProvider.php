@@ -34,5 +34,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('update-user', function ($currentUser, $user) {
             return $currentUser->id === $user->id;
         });
+
+        Gate::define('not-update-user', function ($currentUser, $user) {
+            return $currentUser->id !== $user->id;
+        });
     }
 }

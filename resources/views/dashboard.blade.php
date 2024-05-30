@@ -149,13 +149,15 @@
                                         @can('isAdmin')
                                             <a href="{{ route('user.show', $user->id) }}"
                                                 class="btn btn-primary btn-sm">Detail</a>
+                                            @can('not-update-user', $user)
                                             <a href="{{ route('user.edit', $user->id) }}"
                                                 class="btn btn-secondary btn-sm">Edit</a>
+                                            @endcan
                                             <form action="{{ route('user.destroy', $user->id) }}" method="post"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm md:col-7">Delete</button>
                                             </form>
                                         @endcan
                                         @can('isStudent')
@@ -188,19 +190,17 @@
                     <table class="table table-bordered table-hover">
                         <thead class="table-primary">
                             <tr>
-                                <th scope="col">Accounts</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col" class="text-center">Accounts</th>
+                                <th scope="col" class="text-center">Activity</th>
+                                <th scope="col" class="text-center">Created</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($activities->reverse()->take(10) as $activity)
                                 <tr>
-                                    <th scope="row">{{ $activity->user->name }}</th>
-                                    <td>{{ $activity->activity }}</td>
-                                    <td>{{ $activity->created_at }}</td>
-                                    <td>{{ $activity->updated_at }}</td>
+                                    <th class="text-center" scope="row">{{ $activity->user->name }}</th>
+                                    <td class="text-center">{{ $activity->activity }}</td>
+                                    <td class="text-center">{{ $activity->created_at }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

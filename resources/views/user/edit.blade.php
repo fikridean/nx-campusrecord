@@ -69,11 +69,18 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">
-                                Update User
-                            </button>
+                        @can('isAdmin')
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select id="role" name="role_id" class="form-select" required>
+                                <option value="1" {{ old('role_id', $user->role_id) == 1 ? 'selected' : '' }}>Admin</option>
+                                <option value="2" {{ old('role_id', $user->role_id) == 2 ? 'selected' : '' }}>Student</option>
+                            </select>
+                            @error('role_id')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -138,6 +145,21 @@
                             @error('province')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-grid">
+                            <a class="btn text-white text-2xl btn-success btn-sm mb-3" href="{{ route('dashboard') }}">Back</a>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary mt-3">
+                                Update User
+                            </button>
                         </div>
                     </div>
                 </div>
