@@ -121,6 +121,11 @@
     <div class="container">
         <h1 class="mb-4">Users Details</h1>
 
+        <form class="d-flex my-4" action="/dashboard" method="GET" class="d-flex">
+            <input type="text" name="query" class="form-control me-2" placeholder="Search your friends by username, email, or NIM" required>
+            <button type="submit" class="btn btn-warning text-white">Search</button>
+        </form>
+
         <div class="row mb-4">
             <div class="col-lg-12">
                 <div class="table-responsive">
