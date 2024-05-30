@@ -119,22 +119,38 @@ class UserController extends Controller
 
                 return redirect(Route('dashboard'));
             }
-        }
 
-        $validate = $request->validate([
-            'name' => ['string', 'min:3', 'max:255'],
-            'date_of_birth' => ['string', 'min:3', 'max:50'],
-            'phone_number' => ['string', 'min:3', 'max:100'],
-            'hobby' => ['string', 'min:3'],
-            'address' => ['string', 'min:3', 'max:100'],
-            'rt_number' => ['string', 'min:1', 'max:100'],
-            'rw_number' => ['string', 'min:1', 'max:100'],
-            'village' => ['string', 'min:3', 'max:100'],
-            'district' => ['string', 'min:3', 'max:100'],
-            'city' => ['string', 'min:3', 'max:100'],
-            'province' => ['string', 'min:3', 'max:100'],
-            'map_url' => ['string', 'min:3', 'max:100'],
-        ]);
+            $validate = $request->validate([
+                'name' => ['string', 'min:3', 'max:255'],
+                'date_of_birth' => ['string', 'min:3', 'max:50'],
+                'phone_number' => ['string', 'min:3', 'max:100'],
+                'hobby' => ['string', 'min:3'],
+                'address' => ['string', 'min:3', 'max:100'],
+                'rt_number' => ['string', 'min:1', 'max:100'],
+                'rw_number' => ['string', 'min:1', 'max:100'],
+                'village' => ['string', 'min:3', 'max:100'],
+                'district' => ['string', 'min:3', 'max:100'],
+                'city' => ['string', 'min:3', 'max:100'],
+                'province' => ['string', 'min:3', 'max:100'],
+                'map_url' => ['string', 'min:3', 'max:100'],
+            ]);
+        } else {
+            $validate = $request->validate([
+                'role_id' => ['integer', 'min:1', 'max:2'],
+                'name' => ['string', 'min:3', 'max:255'],
+                'date_of_birth' => ['string', 'min:3', 'max:50'],
+                'phone_number' => ['string', 'min:3', 'max:100'],
+                'hobby' => ['string', 'min:3'],
+                'address' => ['string', 'min:3', 'max:100'],
+                'rt_number' => ['string', 'min:1', 'max:100'],
+                'rw_number' => ['string', 'min:1', 'max:100'],
+                'village' => ['string', 'min:3', 'max:100'],
+                'district' => ['string', 'min:3', 'max:100'],
+                'city' => ['string', 'min:3', 'max:100'],
+                'province' => ['string', 'min:3', 'max:100'],
+                'map_url' => ['string', 'min:3', 'max:100'],
+            ]);
+        }
 
         $user = User::find($id);
         $user->update($validate);
