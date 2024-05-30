@@ -59,7 +59,23 @@ class UserController extends Controller
     public function edit($id)
     {
         if (!Gate::allows('isAdmin')) {
-            return redirect(Route('dashboard'));
+            if (Auth::user()->id != $id) {
+                ActivityLog::create([
+                    'user_id' => Auth::user()->id,
+                    'activity' => 'Tried to access unauthorized user edit form'
+                ]);
+
+                return redirect(Route('dashboard'));
+            }
+
+            ActivityLog::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'Accessed user edit form'
+            ]);
+
+            return view('user.edit', [
+                'user' => User::find($id)
+            ]);
         }
 
         $user = User::find($id);
@@ -77,7 +93,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         if (!Gate::allows('isAdmin')) {
-            return redirect(Route('dashboard'));
+            if (Auth::user()->id != $id) {
+                ActivityLog::create([
+                    'user_id' => Auth::user()->id,
+                    'activity' => 'Tried to update unauthorized user profile'
+                ]);
+
+                return redirect(Route('dashboard'));
+            }
         }
 
         $validate = $request->validate([
@@ -109,7 +132,14 @@ class UserController extends Controller
     public function destroy($id)
     {
         if (!Gate::allows('isAdmin')) {
-            return redirect(Route('dashboard'));
+            if (Auth::user()->id != $id) {
+                ActivityLog::create([
+                    'user_id' => Auth::user()->id,
+                    'activity' => 'Tried to update unauthorized user profile'
+                ]);
+
+                return redirect(Route('dashboard'));
+            }
         }
 
         $user = User::find($id);
