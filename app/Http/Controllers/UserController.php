@@ -43,6 +43,20 @@ class UserController extends Controller
         }
     }
 
+    public function landingPage(Request $request)
+    {
+        $users = User::where(['role_id' => 2])->get();
+
+        if ($request->has('query')) {
+            $users = User::where('name', 'like', '%' . $request->input('query') . '%')
+                ->orWhere('email', 'like', '%' . $request->input('query') . '%')->orWhere('nim')->orWhere('address', 'like', '%' . $request->input('query') . '%')->get();
+        }
+
+        return view('welcome', [
+            'users' => $users
+        ]);
+    }
+
     public function show($id)
     {
         $user = User::find($id);
