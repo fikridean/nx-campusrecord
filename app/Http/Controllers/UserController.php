@@ -32,11 +32,13 @@ class UserController extends Controller
 
         if (Gate::allows('isAdmin')) {
             return view('dashboard', [
+                'query' => $request->input('query'),
                 'users' => $users,
                 'activities' => ActivityLog::all()
             ]);
         } else {
             return view('dashboard', [
+                'query' => $request->input('query'),
                 'users' => $users,
                 'activities' => ActivityLog::where(['user_id' => Auth::user()->id])->get()
             ]);
@@ -53,6 +55,7 @@ class UserController extends Controller
         }
 
         return view('welcome', [
+            'query' => $request->input('query'),
             'users' => $users
         ]);
     }

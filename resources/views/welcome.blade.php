@@ -110,9 +110,10 @@
     <div class="container">
         <h1 class="mb-4">Users Details</h1>
 
-        <form class="d-flex my-4" action="/dashboard" method="GET" class="d-flex">
+        <form class="d-flex my-4" action="{{ route('landingPage') }}" method="GET" class="d-flex">
             <input type="text" name="query" class="form-control me-2"
-                placeholder="Search your friends by username, email, or NIM">
+                placeholder="Search your friends by username, email, or NIM"
+                @isset($query) value="{{ old('query', $query) }}" @endisset>
             <button type="submit" class="btn btn-warning text-white">Search</button>
         </form>
 
@@ -136,7 +137,7 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->nim }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->date_of_birth }}</td>
+                                    <td>{{ $user->phone_number }}</td>
                                     <td>{{ $user->address }} {{ $user->rt_number }} {{ $user->rw_number }}
                                         {{ $user->village }} {{ $user->district }} {{ $user->city }}
                                         {{ $user->province }}</td>
